@@ -1,0 +1,10 @@
+{
+    "name": "localeswitcher",
+    "title": "LocaleSwitcher",
+    "description": "Locale switcher",
+    "version": "1.0.0",
+    "author": {
+        "name": "Actum",
+        "email": "ondrej.mladek@actum.cz"
+    }
+}

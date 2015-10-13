@@ -1,0 +1,57 @@
+image(filename)
+    url(../gfx/filename)
+
+box-sizing()
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+
+clearfix()
+    *zoom 1
+
+    &:before
+    &:after
+        content " "
+        display table
+
+    &:after
+        clear both
+
+resetlist()
+    list-style-type none
+    margin 0
+    padding 0
+
+reset()
+    margin 0
+    padding 0
+
+transitions(name, duration, effect)
+    transition: name duration effect;
+
+transform-scale(ratio)
+    -moz-transform: scale(ratio);
+    -webkit-transform: scale(ratio);
+    -o-transform: scale(ratio);
+    -ms-transform: scale(ratio);
+    transform: scale(ratio);
+
+// graphic symbols
+arrow(rotation, width, color)
+    border width solid transparent
+    content ' '
+    display block
+    if rotation == 'right'
+        border-left-color color
+    if rotation == 'left'
+        border-right-color color
+    if rotation == 'top'
+        border-bottom-color color
+    if rotation == 'bottom'
+        border-top-color color
+    height 0
+    width 0
+
+@media $media-screen-min-tablet
+    .clear-tablet
+        clear both

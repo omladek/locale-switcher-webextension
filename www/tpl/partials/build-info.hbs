@@ -1,0 +1,23 @@
+<div class="build-info-row" id="build-info-row">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" id="nav-tabs" role="tablist">
+        <li class="active"><a href="#tab-pageinfo" role="tab" data-toggle="tab">Page info</a>
+        </li>
+        <li><a href="#tab-buildstatus" role="tab" data-toggle="tab">Build status</a>
+        </li>
+        <li class="pull-right">
+            <button type="button" class="btn btn-default btn-primary btn-sm pull-right" id="clear-cache"><span class="glyphicon glyphicon-trash"></span> <span class="glyphicon glyphicon-cog"></span> Clear cache</button>
+        </li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div class="tab-pane active" id="tab-pageinfo">
+            {{> pageinfo }}
+        </div>
+        <div class="tab-pane" id="tab-buildstatus">
+            {{> build-status }}
+        </div>
+    </div>
+</div>
+<!-- /.build-info-row -->

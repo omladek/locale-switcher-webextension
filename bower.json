@@ -1,0 +1,8 @@
+{
+  "name": "localeswitcher",
+  "version": "0.0.0-ignored",
+  "dependencies": {
+    "bootstrap-stylus": "~3.1.0",
+    "jquery": "~1.9.0"
+  }
+}
