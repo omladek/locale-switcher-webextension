@@ -3,8 +3,6 @@
  */
 var Switcher = function(container) {
     this.container = container;
-    this.environments = this.container.querySelectorAll('.js-change-environment');
-    this.locales = this.container.querySelectorAll('.js-change-locale');
     this.localesList = document.getElementById('locales-list');
     this.currentUrlInput = document.getElementById('current-url');
     this.domainName = 'example'; // TODO - move to some configuration
@@ -107,9 +105,9 @@ Switcher.prototype.parseCurrentUrl = function() {
 
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
         var url = tabs[0].url;
-        var environment = url.split('/')[2].split('.')[0];
-        var locale = url.split('/')[3];
-        var page = url.split('/' + locale + '/')[1];
+        var environment = url.split('/')[2].split('.')[0]; // local, dev, stage, www - everything between the protocol and the domain name
+        var locale = url.split('/')[3]; // en-gb, de-de - everything between the first pair of slashes after the tld
+        var page = url.split('/' + locale + '/')[1]; // index.html, some-folder/some-page.html - everything after the locale
 
         that.currentUrlInput.value = url.split('/' + locale + '/')[1]; // helper for development - save the url to the input
 
@@ -138,7 +136,7 @@ Switcher.prototype.scrollToCurrentLocale = function() {
     var element = this.localesList.querySelector('.active');
     var offset = element.getBoundingClientRect().top;
 
-    window.scroll(0, offset - 220); // fixed header height
+    window.scroll(0, offset - 220); // 200 is the fixed header height
 };
 
 module.exports = Switcher;
