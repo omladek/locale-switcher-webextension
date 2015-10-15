@@ -1,3 +1,5 @@
+# WORK IN PROGRESS!!!
+
 # locale-switcher-webextension
 Example Chrome/Firefox compatible webextension
 
