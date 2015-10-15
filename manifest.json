@@ -3,6 +3,10 @@
     "manifest_version": 2,
     "version": "1.0",
     "description": "Change the environment/locale by one click.",
+    "options_ui": {
+        "page": "www/options.html",
+        "chrome_style": true
+    },
     "browser_action": {
         "default_icon": "www/img/icon_128x128.png",
         "default_title": "Locale switcher",
@@ -21,7 +25,8 @@
         "tabs",
         "clipboardWrite",
         "webRequest",
-        "webRequestBlocking"
+        "webRequestBlocking",
+        "storage"
     ],
     "applications": {
         "gecko": {

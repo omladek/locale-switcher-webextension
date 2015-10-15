@@ -60,7 +60,8 @@ module.exports = function(grunt) {
                 },
                 files: {
                     '<%= js %>/app.js': ['<%= app %>/app.js'],
-                    '<%= js %>/background.js': ['<%= app %>/background.js']
+                    '<%= js %>/background.js': ['<%= app %>/background.js'],
+                    '<%= js %>/options.js': ['<%= app %>/options.js']
                 }
             }
         },
@@ -106,8 +107,8 @@ module.exports = function(grunt) {
                     expand: true,
                     flatten: true,
                     src: [
-                        '<%= bower %>/jquery/jquery.min.js',
-                        '<%= app %>/background.js'
+                        '<%= app %>/background.js',
+                        '<%= app %>/options.js'
                     ],
                     dest: '<%= js %>'
                 }]

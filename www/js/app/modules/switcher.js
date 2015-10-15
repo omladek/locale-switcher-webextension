@@ -5,14 +5,38 @@ var Switcher = function(container) {
     this.container = container;
     this.localesList = document.getElementById('locales-list');
     this.currentUrlInput = document.getElementById('current-url');
-    this.domainName = 'example'; // TODO - move to some configuration
-    this.homepage = 'index.html'; // TODO - move to some configuration
     this.openNewTabCheckbox = document.getElementById('new-tab');
     this.openHomepageCheckbox = document.getElementById('homepage');
 
+    // retrieve the settings
+    this.getSettings();
+
+    // get the current URL which is active
     this.parseCurrentUrl();
 
+    // listen for clicks
     this.container.addEventListener('click', this.handleCLick.bind(this));
+};
+
+Switcher.prototype.getSettings = function() {
+    var that = this;
+    // Firefox currently doesn't support options setting.
+    // You must put your domain and homepage info here.
+    //
+    // In Chrome user can change these values in the chrome://extensions/ or in
+    // the toolbar when clicking on the icon options menu.
+    that.domainName = 'example';
+    that.homepage = 'index.html';
+
+    if (typeof chrome.storage.sync !== 'undefined') {
+        chrome.storage.sync.get({
+            domainName: that.domainName,
+            homepage: that.homepage
+        }, function(items) {
+            that.domainName = items.domainName;
+            that.homepage = items.homepage;
+        });
+    }
 };
 
 Switcher.prototype.handleCLick = function(e) {
@@ -39,10 +63,10 @@ Switcher.prototype.handleLocaleChange = function(e) {
     e.preventDefault();
 
     var current = e.target;
-    var tld = current.getAttribute('data-tab-tld');
+    var tld = current.getAttribute('data-tld');
     var page = this.openHomepage() ? this.homepage : this.getCurrentPage();
 
-    this.currentLocale = current.getAttribute('data-tab-locale');
+    this.currentLocale = current.getAttribute('data-locale');
 
     this.unhighlightLocales();
 
@@ -64,7 +88,7 @@ Switcher.prototype.handleEnvironmentChange = function(e) {
     e.preventDefault();
 
     var current = e.target;
-    var tld = this.localesList.querySelector('.active .js-change-locale').getAttribute('data-tab-tld');
+    var tld = this.localesList.querySelector('.active .js-change-locale').getAttribute('data-tld');
     var page = this.openHomepage() ? this.homepage : this.getCurrentPage();
 
     this.currentEnvironment = current.getAttribute('data-environment');
@@ -124,7 +148,7 @@ Switcher.prototype.parseCurrentUrl = function() {
 };
 
 Switcher.prototype.highlightLocale = function(locale) {
-    this.localesList.querySelector('.js-change-locale[data-tab-locale="' + locale + '"]').parentNode.classList.add('active');
+    this.localesList.querySelector('.js-change-locale[data-locale="' + locale + '"]').parentNode.classList.add('active');
 };
 
 Switcher.prototype.highlightEnvironment = function(environment) {
