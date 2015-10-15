@@ -142,12 +142,12 @@ module.exports = function(grunt) {
                 }
             },
             hbs: function() {
-                return ['tpl'];
+                return ['tpl', 'zip'];
             },
             js: function(filepath) {
                 if (filepath === 'www/js/app.js') {
                 } else {
-                    return ['js'];
+                    return ['js', 'zip'];
                 }
             },
             styl: function(filepath) {
@@ -156,7 +156,7 @@ module.exports = function(grunt) {
                     src: filepath,
                     ext: '.css'
                 }]);
-                return ['css'];
+                return ['css', 'zip'];
             }
         }
     });
@@ -164,7 +164,7 @@ module.exports = function(grunt) {
     require('jit-grunt')(grunt);
 
     // Default task.
-    grunt.registerTask('default', ['esteWatch', 'zipit']);
+    grunt.registerTask('default', ['esteWatch']);
     grunt.registerTask('css', ['stylus', 'concat:css']);
     grunt.registerTask('js', ['jshint:gruntfile', 'jsvalidate:validate', 'browserify']);//, 'uglify:compile']);
     grunt.registerTask('tpl', ['assemble:pages']);
