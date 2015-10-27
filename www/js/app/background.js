@@ -1,6 +1,6 @@
 /*
  * prefill HTTP authentication - the url must be specified in the manifest
- * perminissions alos - Firefox currently doesn' t support this
+ * perminissions also - Firefox currently doesn' t support this
  */
 var gPendingCallbacks = [];
 

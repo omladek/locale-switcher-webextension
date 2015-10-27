@@ -25,17 +25,17 @@ CallUrl.prototype.getSettings = function() {
     that.urlCacheMessages = 'cacheAdminTool.html?cache=resourceBundleCache&removeCache=true';
     that.domainName = 'example';
 
-    // if (typeof chrome.storage.sync !== 'undefined') {
-    //     chrome.storage.sync.get({
-    //         domainName: that.domainName,
-    //         urlCache: that.urlCache,
-    //         urlCacheMessages: that.urlCacheMessages
-    //     }, function(items) {
-    //         that.domainName = items.domainName;
-    //         that.urlCache = items.urlCache;
-    //         that.urlCacheMessages = items.urlCacheMessages;
-    //     });
-    // }
+    if (typeof chrome.storage.sync !== 'undefined') {
+        chrome.storage.sync.get({
+            domainName: that.domainName,
+            urlCache: that.urlCache,
+            urlCacheMessages: that.urlCacheMessages
+        }, function(items) {
+            that.domainName = items.domainName;
+            that.urlCache = items.urlCache;
+            that.urlCacheMessages = items.urlCacheMessages;
+        });
+    }
 };
 
 CallUrl.prototype.parseCurrentUrl = function() {
@@ -71,7 +71,7 @@ CallUrl.prototype.clearCache = function() {
 
     this.ajaxClearCacheRunning = true;
 
-    this.makeRequest(url);
+    this.makeRequest(url, 'cache');
 };
 
 CallUrl.prototype.clearCacheMessages = function() {
@@ -79,20 +79,28 @@ CallUrl.prototype.clearCacheMessages = function() {
 
     this.ajaxClearCacheMessagesRunning = true;
 
-    this.makeRequest(url);
+    this.makeRequest(url, 'messages');
 };
 
 /**
  * @param  {string} url
+ * @param  {string} callback
  */
-CallUrl.prototype.makeRequest = function(url) {
+CallUrl.prototype.makeRequest = function(url, callback) {
     var that = this;
     var xhr = new XMLHttpRequest();
 
     xhr.open('GET', url, true);
 
     xhr.onreadystatechange = function() {
-        if (xhr.readyState == 4) {
+        if (xhr.readyState === 4) {
+
+            if (callback === 'cache') {
+                that.ajaxClearCacheMessagesRunning = false;
+            } else if (callback === 'messages') {
+                that.ajaxClearCacheRunning = false;
+            }
+
             that.checkAjaxRequestStatus();
         }
     };
